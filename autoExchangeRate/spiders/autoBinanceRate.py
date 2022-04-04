@@ -1,5 +1,6 @@
 from copy import deepcopy
-import scrapy, telegram
+import scrapy
+# import telegram
 import json, math
 import xml.etree.ElementTree as ET
 
