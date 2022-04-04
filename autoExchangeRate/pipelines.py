@@ -115,7 +115,6 @@ class AutoexchangeratePipeline:
                 "Price": data['price'].nsmallest(30).max() if key[1] == 'BUY' else data['price'].nlargest(30).min()
             }
 
-
         data = self.get_data()
         
         logging.info('Scraped successfully!!!')

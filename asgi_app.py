@@ -1,7 +1,15 @@
 from typing import List
-
+import config
+from pymongo import MongoClient
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
+
+USER_DB_DIR = config.USER_DB_DIR
+DATABASE_URI = config.DATABASE_URI
+
+client = MongoClient(DATABASE_URI)
+db = client['project']
+db_price = db['price']
 
 app = FastAPI()
 
@@ -69,6 +77,11 @@ manager = ConnectionManager()
 async def get():
     return HTMLResponse(html)
 
+@app.get("/api/")
+async def get_30_tick():
+    query_data = list(db_price.find({}, {"_id": 0}).limit(30))
+    return JSONResponse(query_data)
+
 @app.websocket("/price/")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
@@ -80,3 +93,4 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         await manager.broadcast(data)
+
