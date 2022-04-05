@@ -11,3 +11,9 @@ Start Bot
 scrapy crawl autoBinanceRate
 ```
 Attention: only 1 bot can run at the same time.
+
+Start server 
+
+``
+uvicorn asgi_app:app 
+``
