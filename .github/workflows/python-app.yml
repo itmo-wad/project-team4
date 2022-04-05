@@ -31,9 +31,6 @@ jobs:
     - name: Start bot 
       run: | 
         scrapy crawl autoBinanceRate
-    - name: Start server 
-      run: |
-        uvicorn asgi_app:app
     - name: Add remote origin
       if: github.ref == 'refs/heads/master' && job.status == 'success' #we specify that this action will ONLY run if everything up to now is successful- so if theres a fail in the tests, then this will not be deployed.
       run: |
