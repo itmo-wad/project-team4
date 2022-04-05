@@ -1,1 +1,1 @@
-worker: scrapy crawl 
+worker: scrapy crawl autoBinanceRate
